@@ -2,10 +2,14 @@
 .ipynb_checkpoints
 
 # Environments
-env/
+env/*
 
 # Data 
-datasets/
+datasets/*
+
+# Files
+analysis/__init__.py
+
 
 # Vscode
 .vscode
