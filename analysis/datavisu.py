@@ -3,7 +3,7 @@
 
 """ This module gathers some functions to personalize matplotlib plot. 
 """
-
+import os
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -43,8 +43,60 @@ def nice_plot(plot, legend=False, title="", subtitle="", file=""):
     if legend:
         plt.legend(loc='best', facecolor='w', edgecolor='b')
     # Save the plot
-    plt.savefig(file + ".png", bbox_inches = "tight")
+    folder_path=os.path.join("charts")
+    if not os.path.isdir(folder_path):
+        os.makedirs(folder_path)
+    plt.savefig("charts/{}.png".format(file), bbox_inches = "tight")
     plt.show()
 
-
-
+def my_box_plot(data, num_features, by, file="boxplot"):
+    """Get a nice box plot easy to read, giving both count of values and standard deviation for each category. 
+    -----------
+    Parameters :
+    data: DataFrame
+        the pandas object holding the data
+    num_features: list
+        list of all numerical feature to be used
+    by: string
+        name of the categorical feature
+    file : String
+        name of the png file
+    -----------
+    Return :
+    axes : Matplotlib axis object
+    """
+    # Create a copy of the dataset including the selected features only
+    features = [by] + num_features
+    df = data.loc[:, features]
+    classes = sorted(df.loc[:, by].unique())
+    # figure initialization
+    n = len(num_features)
+    fig = plt.figure(figsize=(6, n*4))
+    # personnalization of boxplot parameters
+    medianprops = {'color':'black'}
+    meanprops = {'marker':'o', 'markeredgecolor':'black', 'markeredgewidth':1, 'markerfacecolor':'peachpuff'}
+    flierprops = {'marker':'+', 'markeredgecolor':'black', 'markeredgewidth':1}
+    # boxplot Creation
+    for i, att in enumerate(num_features):
+        ax = fig.add_subplot(n, 1, i+1)
+        values = [df[df[by]==c][att].dropna().values for c in classes]
+        ax.boxplot(values, labels=classes, vert=False,
+                   showfliers=True, showmeans=True, patch_artist=True,
+                   medianprops=medianprops, meanprops=meanprops, flierprops=flierprops)
+        ax.set_title("{} vs. {}".format(att, by))
+        ax.grid(linestyle='dashed')
+        # get the count values, std and first quartile
+        f = lambda x: x.quantile(.25)
+        props = df.groupby(by)[att].agg(["count", "std", f])
+        # display count values and standard deviation
+        for j in range(len(classes)):
+            ax.text(props.iloc[j, 2], j+1.25+len(classes)/40,
+                    '(n={}, std={})'.format(props.iloc[j, 0], round(props.iloc[j, 1], 2)),
+                    verticalalignment='center', fontsize=11)
+    #save the plot
+    folder_path=os.path.join("charts")
+    if not os.path.isdir(folder_path):
+        os.makedirs(folder_path)
+    plt.savefig("charts/{}.png".format(file), bbox_inches = "tight")
+    plt.tight_layout()
+    plt.show()
