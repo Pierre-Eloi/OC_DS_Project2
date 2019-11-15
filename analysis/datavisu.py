@@ -6,6 +6,7 @@
 import os
 import numpy as np
 import matplotlib.pyplot as plt
+from math import pi
 
 def nice_plot(plot, legend=False, title="", subtitle="", file=""):
     """get a plot in FiveThirtyEight format, making it easy to read. 
@@ -99,4 +100,60 @@ def my_box_plot(data, num_features, by, file="boxplot"):
         os.makedirs(folder_path)
     plt.savefig("charts/{}.png".format(file), bbox_inches = "tight")
     plt.tight_layout()
+    plt.show()
+
+def radar_chart(data, idx, cats, file="radar_chart"):
+    """Display a radar chart
+    -----------
+    Parameters :
+    data: DataFrame
+        the pandas object holding the data
+    idx: list
+        index of observations to be plotted
+    cats: list
+        names of categorical features to be used
+    file : String
+        name of the png file  
+    -----------
+    Return :
+    axes : Matplotlib axis object
+    """
+
+    # number of variables and observations
+    n_cat = len(cats)
+    n_obs = len(idx)
+    
+    # Initialise the spider plot
+    if n_obs % 2 == 0:
+        n_row = n_obs/2
+    else:
+        n_row = n_obs//2 + 1 
+    fig = plt.figure(figsize=(10, n_row*5))
+    
+    # plot data
+    for i, obs in enumerate(idx):
+        values = data.loc[obs, cats].tolist()
+        values += values[:1] # first value to be repeated to close the circular graph
+        # What will be the angle of each axis in the plot?
+        # (we divide the plot / number of features)
+        angles = [n / float(n_cat)*2*pi for n in range(n_cat)]
+        angles += angles[:1]
+        ax = fig.add_subplot(n_row, 2, i+1, polar=True)
+        ax.set_title(obs)
+        # Draw one axe per variable + add labels labels yet
+        plt.xticks(angles[:-1], cats, color='slategrey', size=8)
+        # Draw ylabels
+        ax.set_rlabel_position(0)
+        plt.yticks([1,2,3,4], ["1","2","3","4"], color='slategrey', size=8)
+        plt.ylim(0, 5)
+        # Plot data
+        ax.plot(angles, values, linewidth=1, linestyle='solid')
+        # Fill area
+        ax.fill(angles, values, alpha=0.2)
+    
+    # Save the plot
+    folder_path=os.path.join("charts")
+    if not os.path.isdir(folder_path):
+        os.makedirs(folder_path)
+    plt.savefig("charts/{}.png".format(file), bbox_inches = 'tight')
     plt.show()
