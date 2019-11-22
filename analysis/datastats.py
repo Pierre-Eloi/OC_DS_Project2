@@ -57,7 +57,7 @@ def anova_sum_squares(data, columns, by):
         means = np.zeros(n)
         for j, c in enumerate(classes):
             y_c = y[x==c]
-            idx = y[x==c].nonzero()
+            idx = y[x==c].to_numpy().nonzero()
             M[j, :] = [y_c.size, y_c.mean()]
             errors[idx] = y_c - y_c.mean()
             means[idx] = y_c.mean()
