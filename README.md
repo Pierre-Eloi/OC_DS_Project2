@@ -13,7 +13,7 @@ Une première consacrée au nettoyage des données et à la sélection des varia
 
 La deuxième est consacrée à l'exploration des données. Un *bubble plot* a été utilisé afin de visualiser un maximum de variables sur un seul graphique.
 
-![Bubble_Plot](/charts.bubble_plot.png "Bubble Plot")
+![Bubble_Plot](/charts/bubble_plot.png "Bubble Plot")
 
 Ce graphique montre l'existence de corrélations entre les variables. Une ANOVA a été effectuée pour confirmer ces corrélations, malheureusement le test n'a pas pu être conclusif en raison du non respect des hypothèses de normalité et d'homoscédasticité. Une analyse des pair plots a montré qu'il était préférable de prendre le log pour certaines variables. Enfin les résultats de cette analyse des corrélations ont été utilisés afin de créer un modèle d'imputation des données manquantes basé sur l'algorithme du **kNN**.
 
