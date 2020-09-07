@@ -6,7 +6,7 @@ Ce projet fait parti du parcours DataScientist.
 L'objectif principal est de réaliser une analyse exploratoire sur des données d'éducation afin d'établir un score. Ce score servira à determiner quels sont les pays les plus prometteurs pour une compagnie spécialisée dans la formation en ligne à destination des lycées et des étudiants en étude supérieure. Les données à ma disposition étaient les données de la banque mondiale.
 https://datacatalog.worldbank.org/dataset/education-statistics
 
-Vous trouverez l'ensemble de l'analyse dans le notebook nommé *Project_2*
+Vous trouverez l'ensemble de l'analyse dans le notebook nommé *Project_2*.  
 Cette analyse peut être décomposée en trois grandes parties :
 
 Une première consacrée au nettoyage des données et à la sélection des variables. Le jeu de données était très exhaustif et comportaient de nombreuses variables non significatives. Cette étape de sélection a permis de réduire drastiquement le nombre de variables de 3665 à 5.
