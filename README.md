@@ -15,7 +15,7 @@ La deuxième est consacrée à l'exploration des données. Un *bubble plot* a é
 
 La dernière est dédiée à la création du score. Pour cela une note a été attribuée pour chacune des cinq variables, le score est égale à la moyenne de ces cinqs notes. Chaque pays a été représenté sous forme de *radar chart* afin de visualiser les atouts (et les faiblesses) de chaque pays. À noter qu'il aurait été possible de prendre comme score non pas la moyenne mais la surface délimitée par le diagramme radar.
 
-Les librairies python nécessaires pour pouvoir lancer le notebook sont regroupées dans le fichier txt *requirements*
+Les librairies python nécessaires pour pouvoir lancer le notebook sont regroupées dans le fichier *requirements.txt*
 
 Toutes les fonctions créées afin de mener à bien le projet ont été regroupées dans le dossier **analysis**.
 - les fonctions permettant de charger les données ont été regroupées dans le fichier *dataload*
